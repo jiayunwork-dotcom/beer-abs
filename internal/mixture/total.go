@@ -15,7 +15,7 @@ func (m Mixture) TotalAbsorbance() (float64, error) {
 	if err := m.Validate(); err != nil {
 		return 0, err
 	}
-	return m.totalAbsorbanceUnchecked(), nil
+	return recallTotal(m.totalAbsorbanceUnchecked), nil
 }
 
 // totalAbsorbanceUnchecked sums the contributions assuming a validated
