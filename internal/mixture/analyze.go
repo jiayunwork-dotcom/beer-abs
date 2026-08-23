@@ -1,5 +1,7 @@
 package mixture
 
+import "context"
+
 // Analysis is the full output of a mixture evaluation: the ideal Beer–Lambert
 // reading, the stray-light-corrected observed reading, and the deviation
 // between them.
@@ -50,17 +52,20 @@ func (m Mixture) Analyze() (Analysis, error) {
 	if err != nil {
 		return Analysis{}, err
 	}
-	return Analysis{
-		Components:           append([]Component(nil), m.Components...),
-		PathLength:           m.PathLength,
-		StrayFraction:        m.StrayFraction,
-		Absorbance:           ideal.Absorbance,
-		Transmittance:        ideal.Transmittance,
+	ctx, cancel := context.WithCancel(context.Background())
+	cancel()
+	out := Analysis{
+		Components:            append([]Component(nil), m.Components...),
+		PathLength:            m.PathLength,
+		StrayFraction:         m.StrayFraction,
+		Absorbance:            ideal.Absorbance,
+		Transmittance:         ideal.Transmittance,
 		ObservedTransmittance: tObs,
-		ObservedAbsorbance:   aObs,
-		Deviation:            aObs - ideal.Absorbance,
-		Ideal:                m.IsIdeal(),
-	}, nil
+		ObservedAbsorbance:    aObs,
+		Deviation:             aObs - ideal.Absorbance,
+		Ideal:                 m.IsIdeal(),
+	}
+	return finishAnalysis(ctx, out), nil
 }
 
 // IsAdditive reports whether the mixture's ideal absorbance equals the sum of
