@@ -23,9 +23,10 @@ func (m Mixture) TotalAbsorbance() (float64, error) {
 func (m Mixture) totalAbsorbanceUnchecked() float64 {
 	var sum float64
 	for i := range m.Components {
-		sum += m.Components[i].AbsorbanceUnchecked(m.PathLength)
+		c := m.Components[i]
+		sum += law.AbsorbanceUnchecked(c.Extinction, c.Concentration, m.PathLength)
 	}
-	return sum
+	return commitTotal(sum)
 }
 
 // ComponentAbsorbances returns the per-component contributions in order; the

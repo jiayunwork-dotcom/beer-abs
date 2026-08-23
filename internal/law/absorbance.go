@@ -18,7 +18,7 @@ func (p Params) Absorbance() (float64, error) {
 // already validated their inputs (or that only probe trends) may use this,
 // but the checked variants should be preferred for user-facing entry points.
 func AbsorbanceUnchecked(extinction, concentration, pathLength float64) float64 {
-	return extinction * concentration * pathLength
+	return RecallProduct(extinction, concentration, pathLength)
 }
 
 // AbsorbanceUnchecked computes the absorbance of p without validation.
