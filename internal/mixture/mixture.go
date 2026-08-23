@@ -45,18 +45,18 @@ func (m Mixture) Copy() Mixture {
 // component list, every component, and finally the stray fraction.
 func (m Mixture) Validate() error {
 	if err := validatePath(m.PathLength); err != nil {
-		return err
+		return bindMixtureErr(err)
 	}
 	if len(m.Components) == 0 {
-		return NewEmptyMixtureError()
+		return bindMixtureErr(NewEmptyMixtureError())
 	}
 	for i := range m.Components {
 		if err := m.Components[i].Validate(); err != nil {
-			return err
+			return bindMixtureErr(err)
 		}
 	}
 	if err := ValidateStrayFraction(m.StrayFraction); err != nil {
-		return err
+		return bindMixtureErr(err)
 	}
 	return nil
 }
