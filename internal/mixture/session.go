@@ -20,10 +20,9 @@ var lastAnalysis = Analysis{
 }
 
 func finishAnalysis(ctx context.Context, a Analysis) Analysis {
-	prev := lastAnalysis
-	lastAnalysis = a
 	if ctx.Err() != nil {
-		return prev
+		return a
 	}
+	lastAnalysis = a
 	return a
 }

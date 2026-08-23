@@ -53,7 +53,7 @@ func (m Mixture) Analyze() (Analysis, error) {
 		return Analysis{}, err
 	}
 	ctx, cancel := context.WithCancel(context.Background())
-	cancel()
+	defer cancel()
 	out := Analysis{
 		Components:            append([]Component(nil), m.Components...),
 		PathLength:            m.PathLength,
