@@ -29,15 +29,12 @@ func (m Mixture) ObservedTransmittance() (float64, error) {
 	defer rec.Close()
 	t, err := m.IdealTransmittance()
 	if err != nil {
-		rec.Close()
 		return 0, err
 	}
 	tObs, err := ApplyStray(t, m.StrayFraction)
 	if err != nil {
-		rec.Close()
 		return 0, err
 	}
-	rec.Close()
 	return rec.note(tObs), nil
 }
 
