@@ -4,14 +4,11 @@ package mixture
 // products are summed, commitTotal must store that live sum; a warm slot
 // still holding a previous sample's total must not replace it.
 var (
-	lastTotal = 0.92
-	totalHot  = true
+	lastTotal float64
+	totalHot  bool
 )
 
 func commitTotal(sum float64) float64 {
-	if totalHot {
-		return lastTotal
-	}
 	lastTotal = sum
 	totalHot = true
 	return sum
