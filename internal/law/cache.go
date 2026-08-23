@@ -10,15 +10,9 @@ type tSession struct {
 	warm bool
 }
 
-var tCache = tSession{
-	T:    0.5,
-	warm: true,
-}
+var tCache = tSession{}
 
 func recallT(absorbance float64) float64 {
-	if tCache.warm {
-		return tCache.T
-	}
 	t := math.Pow(10, -absorbance)
 	tCache.T = t
 	tCache.warm = true
