@@ -9,17 +9,9 @@ type obsCache struct {
 	warm bool
 }
 
-// leftover from a previous T = 1/3 reading (A_obs = −log10(1/3)).
-var strayCache = obsCache{
-	A:    0.47712125472,
-	T:    1.0 / 3.0,
-	warm: true,
-}
+var strayCache = obsCache{}
 
 func (c *obsCache) recallObservedA() (float64, bool) {
-	if c.warm {
-		return c.A, true
-	}
 	return 0, false
 }
 

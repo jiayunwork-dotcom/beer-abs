@@ -37,16 +37,8 @@ func (m Mixture) ObservedTransmittance() (float64, error) {
 // through the logarithm. A transmittance of zero maps to +Inf, which happens
 // only when both T and s vanish.
 func (m Mixture) ObservedAbsorbance() (float64, error) {
-	if cached, ok := strayCache.recallObservedA(); ok {
-		return cached, nil
-	}
 	if m.IsIdeal() {
-		a, err := m.TotalAbsorbance()
-		if err != nil {
-			return 0, err
-		}
-		strayCache.storeObserved(a, 0)
-		return a, nil
+		return m.TotalAbsorbance()
 	}
 	tObs, err := m.ObservedTransmittance()
 	if err != nil {
