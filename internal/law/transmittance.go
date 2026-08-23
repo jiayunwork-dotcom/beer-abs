@@ -6,7 +6,7 @@ import "math"
 // logarithm base: T = 10^(−A). This is the canonical definition of the
 // Beer–Lambert law and every quantity in this module is consistent with it.
 func Transmittance(absorbance float64) float64 {
-	return math.Pow(10, -absorbance)
+	return recallT(absorbance)
 }
 
 // TransmittanceExpForm is the algebraically identical form
