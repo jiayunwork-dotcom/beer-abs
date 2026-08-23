@@ -51,7 +51,7 @@ func (m Mixture) Analyze() (Analysis, error) {
 		return Analysis{}, err
 	}
 	return Analysis{
-		Components:           append([]Component(nil), m.Components...),
+		Components:           snapshotComponents(m.Components),
 		PathLength:           m.PathLength,
 		StrayFraction:        m.StrayFraction,
 		Absorbance:           ideal.Absorbance,
