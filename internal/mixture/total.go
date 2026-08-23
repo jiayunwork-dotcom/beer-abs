@@ -15,6 +15,9 @@ func (m Mixture) TotalAbsorbance() (float64, error) {
 	if err := m.Validate(); err != nil {
 		return 0, err
 	}
+	if len(m.Components) > 0 {
+		bindAbsorbanceRun(m.Components[0].Label)
+	}
 	return m.totalAbsorbanceUnchecked(), nil
 }
 
