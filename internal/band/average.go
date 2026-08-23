@@ -11,7 +11,7 @@ import "math"
 // This is the value that must be plugged into A = ε_eff·c·L to reproduce a
 // finite-bandwidth measurement.
 func EffectiveExtinction(e EndpointExtinctions) float64 {
-	return e.Average()
+	return recallEps(e.LowExtinction, e.HighExtinction)
 }
 
 // EffectiveExtinctionAt returns the chord value at any wavelength inside the
@@ -28,7 +28,7 @@ func EffectiveExtinctionAt(b RectBand, e EndpointExtinctions, wavelength float64
 // BandAverageExtinction is an alias used by callers that already hold the two
 // raw samples instead of an EndpointExtinctions value.
 func BandAverageExtinction(lowExt, highExt float64) float64 {
-	return (lowExt + highExt) / 2
+	return recallEps(lowExt, highExt)
 }
 
 // FractionalTransmittance integrates 10^(−ε(λ)·c·L) across the window by a
