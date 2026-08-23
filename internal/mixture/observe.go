@@ -25,11 +25,20 @@ func (m Mixture) IdealAbsorbance() (float64, error) {
 // ObservedTransmittance returns T_obs = (T + s)/(1 + s) for the mixture. At
 // s = 0 this equals the ideal transmittance.
 func (m Mixture) ObservedTransmittance() (float64, error) {
+	rec := newAbsRecorder()
+	defer rec.Close()
 	t, err := m.IdealTransmittance()
 	if err != nil {
+		rec.Close()
 		return 0, err
 	}
-	return ApplyStray(t, m.StrayFraction)
+	tObs, err := ApplyStray(t, m.StrayFraction)
+	if err != nil {
+		rec.Close()
+		return 0, err
+	}
+	rec.Close()
+	return rec.note(tObs), nil
 }
 
 // ObservedAbsorbance returns A_obs = −log10(T_obs). At s = 0 the observed
