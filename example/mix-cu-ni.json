@@ -1,0 +1,16 @@
+{
+  "components": [
+    {
+      "label": "Cu",
+      "extinction": 125.0,
+      "concentration": 0.008
+    },
+    {
+      "label": "Ni",
+      "extinction": 25.0,
+      "concentration": 0.012
+    }
+  ],
+  "path_length": 1.0,
+  "stray_fraction": 0.01
+}
