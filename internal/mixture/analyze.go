@@ -1,5 +1,7 @@
 package mixture
 
+import "beer-abs/internal/law"
+
 type Analysis struct {
 	Components []Component
 
@@ -36,7 +38,7 @@ func (m Mixture) Analyze() (Analysis, error) {
 	if err != nil {
 		return Analysis{}, err
 	}
-	return Analysis{
+	an := Analysis{
 		Components:            append([]Component(nil), m.Components...),
 		PathLength:            m.PathLength,
 		StrayFraction:         m.StrayFraction,
@@ -46,7 +48,20 @@ func (m Mixture) Analyze() (Analysis, error) {
 		ObservedAbsorbance:    aObs,
 		Deviation:             aObs - ideal.Absorbance,
 		Ideal:                 m.IsIdeal(),
-	}, nil
+	}
+	held := law.HoldAbsLive(law.AbsLive{
+		Absorbance:         an.Absorbance,
+		ObservedAbsorbance: an.ObservedAbsorbance,
+		Deviation:          an.Deviation,
+		Transmittance:      an.Transmittance,
+		ObservedT:          an.ObservedTransmittance,
+	})
+	an.Absorbance = held.Absorbance
+	an.ObservedAbsorbance = held.ObservedAbsorbance
+	an.Deviation = held.Deviation
+	an.Transmittance = held.Transmittance
+	an.ObservedTransmittance = held.ObservedT
+	return an, nil
 }
 
 func (a Analysis) IsAdditive() bool {
