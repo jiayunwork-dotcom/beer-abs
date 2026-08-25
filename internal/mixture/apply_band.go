@@ -14,7 +14,7 @@ func (m Mixture) ApplyBand(b band.RectBand, epsAtLow, epsAtHigh func(i int) floa
 		if err := e.Validate(); err != nil {
 			return Mixture{}, err
 		}
-		out.Components[i].Extinction = band.EffectiveExtinction(e)
+		out.Components[i].Extinction = band.HoldEpsLive(band.EffectiveExtinction(e))
 	}
 	return out, nil
 }
