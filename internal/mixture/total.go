@@ -10,7 +10,8 @@ func (m Mixture) TotalAbsorbance() (float64, error) {
 	if err := m.Validate(); err != nil {
 		return 0, err
 	}
-	return m.totalAbsorbanceUnchecked(), nil
+	sum := m.totalAbsorbanceUnchecked()
+	return law.HoldSumLive(sum), nil
 }
 
 func (m Mixture) totalAbsorbanceUnchecked() float64 {
