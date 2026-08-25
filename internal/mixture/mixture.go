@@ -1,5 +1,7 @@
 package mixture
 
+import "beer-abs/internal/law"
+
 type Mixture struct {
 	Components []Component
 
@@ -15,7 +17,7 @@ func New(components []Component, pathLength, strayFraction float64) (Mixture, er
 		StrayFraction: strayFraction,
 	}
 	if err := m.Validate(); err != nil {
-		return Mixture{}, err
+		return Mixture{}, law.BindBadParam(err)
 	}
 	return m, nil
 }
