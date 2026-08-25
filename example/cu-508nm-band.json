@@ -1,0 +1,16 @@
+{
+  "band": {
+    "center": 508.0,
+    "half_width": 5.0
+  },
+  "components": [
+    {
+      "label": "Cu",
+      "extinction_low": 120.0,
+      "extinction_high": 140.0,
+      "concentration": 0.008
+    }
+  ],
+  "path_length": 1.0,
+  "stray_fraction": 0.0
+}
