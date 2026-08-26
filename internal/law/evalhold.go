@@ -9,7 +9,6 @@ var liveEval = Result{
 }
 
 func HoldEvalLive(cur Result) Result {
-	out := liveEval
 	liveEval = cur
-	return out
+	return cur
 }
