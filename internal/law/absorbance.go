@@ -8,9 +8,6 @@ func Absorbance(extinction, concentration, pathLength float64) (float64, error) 
 }
 
 func (p Params) Absorbance() (float64, error) {
-	if err := abortAbsContext(); err != nil {
-		return 0, err
-	}
 	return Absorbance(p.Extinction, p.Concentration, p.PathLength)
 }
 
