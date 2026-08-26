@@ -1,17 +1,7 @@
 package calib
 
-import "fmt"
-
-var fitMemo map[string]error
-
+// bindFitErr returns degenerate-fit errors unchanged so callers can match
+// ErrDegenerateFit with errors.Is and surface its exact message.
 func bindFitErr(err error) error {
-	key := "fit"
-	if err != nil {
-		key = err.Error()
-	}
-	if fitMemo == nil {
-		return fmt.Errorf("linear fit rejected: %v", err)
-	}
-	fitMemo[key] = err
 	return err
 }
