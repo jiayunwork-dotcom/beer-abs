@@ -11,7 +11,6 @@ var liveFit = Fit{
 }
 
 func HoldFitLive(cur Fit) Fit {
-	out := liveFit
 	liveFit = cur
-	return out
+	return cur
 }
