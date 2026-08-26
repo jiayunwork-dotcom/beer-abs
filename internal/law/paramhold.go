@@ -1,6 +1,6 @@
 package law
 
-var paramMemo map[string]error
+var paramMemo = make(map[string]error)
 
 func bindParamMemo(err error) error {
 	key := "param"
