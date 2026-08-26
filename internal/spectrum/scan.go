@@ -37,7 +37,6 @@ func (s Scan) Len() int {
 }
 
 func (s Scan) Peak() (Point, error) {
-	s = overlayPeakScratch(s)
 	if len(s.Points) < 3 {
 		return Point{}, ErrNoPeak
 	}
